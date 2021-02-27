@@ -1,0 +1,121 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Bau.Controls</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Themes\Images\Accept.png" />
+    <None Remove="Themes\Images\ArrowDown.png" />
+    <None Remove="Themes\Images\ArrowFirst.png" />
+    <None Remove="Themes\Images\ArrowLast.png" />
+    <None Remove="Themes\Images\ArrowNext.png" />
+    <None Remove="Themes\Images\ArrowPrevious.png" />
+    <None Remove="Themes\Images\ArrowUp.png" />
+    <None Remove="Themes\Images\Blog.png" />
+    <None Remove="Themes\Images\Close.png" />
+    <None Remove="Themes\Images\Copy.png" />
+    <None Remove="Themes\Images\Cut.png" />
+    <None Remove="Themes\Images\Delete.png" />
+    <None Remove="Themes\Images\Document.png" />
+    <None Remove="Themes\Images\Download.png" />
+    <None Remove="Themes\Images\EntryInteresting.png" />
+    <None Remove="Themes\Images\EntryNotRead.png" />
+    <None Remove="Themes\Images\EntryRead.png" />
+    <None Remove="Themes\Images\Exit.png" />
+    <None Remove="Themes\Images\File.png" />
+    <None Remove="Themes\Images\Folder.png" />
+    <None Remove="Themes\Images\Image.png" />
+    <None Remove="Themes\Images\NewItem.png" />
+    <None Remove="Themes\Images\News.png" />
+    <None Remove="Themes\Images\Notifications\facebook-button.png" />
+    <None Remove="Themes\Images\Notifications\microsoft-windows-8-logo.png" />
+    <None Remove="Themes\Images\Notifications\notification-icon.png" />
+    <None Remove="Themes\Images\Notifications\Radiation_warning_symbol.png" />
+    <None Remove="Themes\Images\PageBase.png" />
+    <None Remove="Themes\Images\Paste.png" />
+    <None Remove="Themes\Images\Process.png" />
+    <None Remove="Themes\Images\Project.png" />
+    <None Remove="Themes\Images\Properties.gif" />
+    <None Remove="Themes\Images\Refresh.png" />
+    <None Remove="Themes\Images\Save.png" />
+    <None Remove="Themes\Images\SaveAll.png" />
+    <None Remove="Themes\Images\saveas.png" />
+    <None Remove="Themes\Images\Search.png" />
+    <None Remove="Themes\Images\Section.png" />
+    <None Remove="Themes\Images\Solution.png" />
+    <None Remove="Themes\Images\Tag.png" />
+    <None Remove="Themes\Images\Template.png" />
+    <None Remove="Themes\Images\WebBrowser.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Images\saveas.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.664.37" />
+    <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Images\Accept.png" />
+    <Resource Include="Themes\Images\ArrowDown.png" />
+    <Resource Include="Themes\Images\ArrowFirst.png" />
+    <Resource Include="Themes\Images\ArrowLast.png" />
+    <Resource Include="Themes\Images\ArrowNext.png" />
+    <Resource Include="Themes\Images\ArrowPrevious.png" />
+    <Resource Include="Themes\Images\ArrowUp.png" />
+    <Resource Include="Themes\Images\Blog.png" />
+    <Resource Include="Themes\Images\Close.png" />
+    <Resource Include="Themes\Images\Copy.png" />
+    <Resource Include="Themes\Images\Cut.png" />
+    <Resource Include="Themes\Images\Delete.png" />
+    <Resource Include="Themes\Images\Document.png" />
+    <Resource Include="Themes\Images\Download.png" />
+    <Resource Include="Themes\Images\EntryInteresting.png" />
+    <Resource Include="Themes\Images\EntryNotRead.png" />
+    <Resource Include="Themes\Images\EntryRead.png" />
+    <Resource Include="Themes\Images\Exit.png" />
+    <Resource Include="Themes\Images\File.png" />
+    <Resource Include="Themes\Images\Folder.png" />
+    <Resource Include="Themes\Images\Image.png" />
+    <Resource Include="Themes\Images\NewItem.png" />
+    <Resource Include="Themes\Images\News.png" />
+    <Resource Include="Themes\Images\Notifications\facebook-button.png" />
+    <Resource Include="Themes\Images\Notifications\microsoft-windows-8-logo.png" />
+    <Resource Include="Themes\Images\Notifications\notification-icon.png" />
+    <Resource Include="Themes\Images\Notifications\Radiation_warning_symbol.png" />
+    <Resource Include="Themes\Images\PageBase.png" />
+    <Resource Include="Themes\Images\Paste.png" />
+    <Resource Include="Themes\Images\Process.png" />
+    <Resource Include="Themes\Images\Project.png" />
+    <Resource Include="Themes\Images\Properties.gif" />
+    <Resource Include="Themes\Images\Refresh.png" />
+    <Resource Include="Themes\Images\Save.png" />
+    <Resource Include="Themes\Images\SaveAll.png" />
+    <Resource Include="Themes\Images\Search.png" />
+    <Resource Include="Themes\Images\Section.png" />
+    <Resource Include="Themes\Images\Solution.png" />
+    <Resource Include="Themes\Images\Tag.png" />
+    <Resource Include="Themes\Images\Template.png" />
+    <Resource Include="Themes\Images\WebBrowser.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Editors\DoubleUpDown.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Editors\LongUpDown.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>
