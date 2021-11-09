@@ -15,6 +15,6 @@ namespace Bau.Controls.WebExplorers
 		/// <summary>
 		///		Parámetros de la llamada a función
 		/// </summary>
-		public string Parameters { get; private set; }
+		public string Parameters { get; }
 	}
 }

@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <RootNamespace>Bau.Controls</RootNamespace>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Compile Remove="WebExplorers\WebExplorerExtended.xaml.cs" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Themes\Images\Accept.png" />
     <None Remove="Themes\Images\ArrowDown.png" />
@@ -26,9 +26,6 @@
     <None Remove="Themes\Images\Delete.png" />
     <None Remove="Themes\Images\Document.png" />
     <None Remove="Themes\Images\Download.png" />
-    <None Remove="Themes\Images\EntryInteresting.png" />
-    <None Remove="Themes\Images\EntryNotRead.png" />
-    <None Remove="Themes\Images\EntryRead.png" />
     <None Remove="Themes\Images\Exit.png" />
     <None Remove="Themes\Images\File.png" />
     <None Remove="Themes\Images\Folder.png" />
@@ -55,16 +52,16 @@
     <None Remove="Themes\Images\Template.png" />
     <None Remove="Themes\Images\WebBrowser.png" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Page Remove="WebExplorers\WebExplorerExtended.xaml" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Images\saveas.png" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.664.37" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.818.41" />
     <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.2.1" />
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="Themes\Images\Accept.png" />
     <Resource Include="Themes\Images\ArrowDown.png" />
@@ -80,9 +77,6 @@
     <Resource Include="Themes\Images\Delete.png" />
     <Resource Include="Themes\Images\Document.png" />
     <Resource Include="Themes\Images\Download.png" />
-    <Resource Include="Themes\Images\EntryInteresting.png" />
-    <Resource Include="Themes\Images\EntryNotRead.png" />
-    <Resource Include="Themes\Images\EntryRead.png" />
     <Resource Include="Themes\Images\Exit.png" />
     <Resource Include="Themes\Images\File.png" />
     <Resource Include="Themes\Images\Folder.png" />
@@ -108,7 +102,6 @@
     <Resource Include="Themes\Images\Template.png" />
     <Resource Include="Themes\Images\WebBrowser.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Page Update="Editors\DoubleUpDown.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -117,5 +110,4 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
-
 </Project>

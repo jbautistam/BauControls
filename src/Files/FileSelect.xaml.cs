@@ -47,7 +47,7 @@ namespace Bau.Controls.Files
 		/// </summary>
 		private void OpenDialog()
 		{
-			string path = null, extension = null;
+			string path = string.Empty, extension = string.Empty;
 			string fileName = FileName;
 
 				// Obtiene el directorio

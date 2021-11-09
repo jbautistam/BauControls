@@ -15,9 +15,6 @@ namespace Bau.Controls.TreeViews
 																										 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
 																										 null, null, true,
 																										 System.Windows.Data.UpdateSourceTrigger.PropertyChanged));
-		public TreeViewExtended() : base()
-		{
-		}
 
 		/// <summary>
 		///		Sobrescribe el tratamiento del evento SelectedItemChanged
