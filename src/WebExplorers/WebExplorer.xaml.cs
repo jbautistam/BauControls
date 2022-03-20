@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Threading.Tasks;
+using Microsoft.Web.WebView2.Core;
 
 namespace Bau.Controls.WebExplorers
 {
@@ -16,7 +17,12 @@ namespace Bau.Controls.WebExplorers
 		public static readonly DependencyProperty HtmlContentProperty = DependencyProperty.Register(nameof(HtmlContent), typeof(string), typeof(WebExplorer),
 																									new FrameworkPropertyMetadata(string.Empty,
 																																  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+		public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(nameof(Title), typeof(string), typeof(WebExplorer),
+																									new FrameworkPropertyMetadata(string.Empty,
+																																  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
 		// Eventos públicos
+		public event EventHandler EndNavigate;
 		public event EventHandler<WebExplorerFunctionEventArgs> FunctionExecute;
 		public event EventHandler<WebExplorerNavigateToEventArgs> BeforeNavigateTo;
 
@@ -35,12 +41,22 @@ namespace Bau.Controls.WebExplorers
 			// Inicializa el objeto que atiende las llamadas de JavaScript
 			wbExplorer.CoreWebView2.WebMessageReceived += ReceiveJavaScriptMessage;
 			wbExplorer.NavigationStarting += TreatNavigationStart;
+			wbExplorer.NavigationCompleted += TreatNavigationEnd;
+		}
+
+		/// <summary>
+		///		Trata el evento de final de navegación
+		/// </summary>
+		private void TreatNavigationEnd(object sender, CoreWebView2NavigationCompletedEventArgs e)
+		{
+			Title = wbExplorer.CoreWebView2.DocumentTitle;
+			EndNavigate?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
 		///		Trata el evento de inicio de navegación a una URL
 		/// </summary>
-		private void TreatNavigationStart(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+		private void TreatNavigationStart(object sender, CoreWebView2NavigationStartingEventArgs e)
 		{
 			if (!string.IsNullOrWhiteSpace(e.Uri) && !e.Uri.StartsWith("data:", StringComparison.CurrentCultureIgnoreCase) && 
 				!e.Uri.StartsWith("about:", StringComparison.CurrentCultureIgnoreCase))
@@ -57,7 +73,7 @@ namespace Bau.Controls.WebExplorers
 		/// <summary>
 		///		Método que recibe los mensajes de javaScript
 		/// </summary>
-		private void ReceiveJavaScriptMessage(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs args)
+		private void ReceiveJavaScriptMessage(object sender, CoreWebView2WebMessageReceivedEventArgs args)
 		{
 			FunctionExecute?.Invoke(this, new WebExplorerFunctionEventArgs(args.TryGetWebMessageAsString()));
 			//String uri = args.TryGetWebMessageAsString();
@@ -216,6 +232,15 @@ namespace Bau.Controls.WebExplorers
 				// Muestra el HTML
 				ShowHtmlAsync(value).ConfigureAwait(true);
 			}
+		}
+
+		/// <summary>
+		///		Título del documento actual
+		/// </summary>
+		public string Title
+		{
+			get { return (string) GetValue(TitleProperty); }
+			set { SetValue(TitleProperty, value); }
 		}
 
 		/// <summary>
