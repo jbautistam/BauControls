@@ -103,6 +103,10 @@
     <Resource Include="Themes\Images\WebBrowser.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Editors\PasswordTextBox.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Editors\DoubleUpDown.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

@@ -18,13 +18,17 @@ namespace Bau.Controls.WebExplorers
 																									new FrameworkPropertyMetadata(string.Empty,
 																																  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 		public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(nameof(Title), typeof(string), typeof(WebExplorer),
-																									new FrameworkPropertyMetadata(string.Empty,
-																																  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+																							  new FrameworkPropertyMetadata(string.Empty,
+																															FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+		public static readonly DependencyProperty UrlProperty = DependencyProperty.Register(nameof(Uri), typeof(string), typeof(WebExplorer),
+																							  new FrameworkPropertyMetadata(string.Empty,
+																															FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 		// Eventos públicos
-		public event EventHandler EndNavigate;
+		public event EventHandler<WebExplorerUrlArgs> EndNavigate;
 		public event EventHandler<WebExplorerFunctionEventArgs> FunctionExecute;
 		public event EventHandler<WebExplorerNavigateToEventArgs> BeforeNavigateTo;
+		public event EventHandler<WebExplorerUrlArgs> OpenWindowRequested;
 
 		public WebExplorer()
 		{ 
@@ -40,8 +44,18 @@ namespace Bau.Controls.WebExplorers
 			await wbExplorer.EnsureCoreWebView2Async();
 			// Inicializa el objeto que atiende las llamadas de JavaScript
 			wbExplorer.CoreWebView2.WebMessageReceived += ReceiveJavaScriptMessage;
+			wbExplorer.CoreWebView2InitializationCompleted += TreatInitialization;
 			wbExplorer.NavigationStarting += TreatNavigationStart;
 			wbExplorer.NavigationCompleted += TreatNavigationEnd;
+			wbExplorer.CoreWebView2.NewWindowRequested += TreatNewWindowRequested;
+		}
+
+		/// <summary>
+		///		Trata la configuración de inicio del explorador
+		/// </summary>
+		private void TreatInitialization(object sender, CoreWebView2InitializationCompletedEventArgs e)
+		{
+			wbExplorer.CoreWebView2.NewWindowRequested += TreatNewWindowRequested;
 		}
 
 		/// <summary>
@@ -50,7 +64,7 @@ namespace Bau.Controls.WebExplorers
 		private void TreatNavigationEnd(object sender, CoreWebView2NavigationCompletedEventArgs e)
 		{
 			Title = wbExplorer.CoreWebView2.DocumentTitle;
-			EndNavigate?.Invoke(this, EventArgs.Empty);
+			EndNavigate?.Invoke(this, new WebExplorerUrlArgs(wbExplorer.CoreWebView2.Source));
 		}
 
 		/// <summary>
@@ -68,6 +82,23 @@ namespace Bau.Controls.WebExplorers
 					// Indica si se cancela la navegación
 					e.Cancel = args.Cancel;
 			}
+		}
+
+		/// <summary>
+		///		Trata el evento de apertura de una nueva ventana
+		/// </summary>
+		private void TreatNewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
+		{
+			e.Handled = true;
+			OpenNewWindow(e.Uri);
+		}
+
+		/// <summary>
+		///		Indica al host que abra una nueva ventana
+		/// </summary>
+		private void OpenNewWindow(string url)
+		{
+			OpenWindowRequested?.Invoke(this, new WebExplorerUrlArgs(url));
 		}
 
 		/// <summary>
@@ -241,6 +272,15 @@ namespace Bau.Controls.WebExplorers
 		{
 			get { return (string) GetValue(TitleProperty); }
 			set { SetValue(TitleProperty, value); }
+		}
+
+		/// <summary>
+		///		Url actual
+		/// </summary>
+		public string Url
+		{
+			get { return (string) GetValue(UrlProperty); }
+			set { SetValue(UrlProperty, value); }
 		}
 
 		/// <summary>
