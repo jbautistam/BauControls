@@ -30,12 +30,19 @@ namespace Bau.Controls.Editors
 			PasswordText = (sender as PasswordBox)?.Password;
 		}
 
+		/// <summary>
+		///		Tratamiento de la propiedad vinculada de cambio de contraseña
+		/// </summary>
 		private static void OnPasswordTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			PasswordTextBox passwordBoxControl = sender as PasswordTextBox;
-
-				if (passwordBoxControl != null && (string) args.NewValue != (string) args.OldValue)
+			if (sender is PasswordTextBox passwordBoxControl && passwordBoxControl is not null && (string) args.NewValue != (string) args.OldValue)
+			{
+				// Sólo asigna el valor a la contraseña la primera vez
+				if (string.IsNullOrWhiteSpace(passwordBoxControl.txtPassword.Password))
 					passwordBoxControl.txtPassword.Password = (string) args.NewValue;
+				// Asigna el texto de la contraseña
+				passwordBoxControl.PasswordText = (string) args.NewValue;
+			}
 		}
 
 		/// <summary>
