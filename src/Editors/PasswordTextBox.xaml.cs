@@ -23,6 +23,7 @@ namespace Bau.Controls.Editors
 		public PasswordTextBox()
 		{
 			InitializeComponent();
+			PasswordText = string.Empty;
 		}
 
 		private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
