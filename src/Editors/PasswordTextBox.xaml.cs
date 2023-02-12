@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Bau.Controls.Editors
 {
@@ -36,7 +32,7 @@ namespace Bau.Controls.Editors
 		/// </summary>
 		private static void OnPasswordTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			if (sender is PasswordTextBox passwordBoxControl && passwordBoxControl is not null && (string) args.NewValue != (string) args.OldValue)
+			if (sender is PasswordTextBox passwordBoxControl && (string) args.NewValue != (string) args.OldValue)
 			{
 				// Sólo asigna el valor a la contraseña la primera vez
 				if (string.IsNullOrWhiteSpace(passwordBoxControl.txtPassword.Password))

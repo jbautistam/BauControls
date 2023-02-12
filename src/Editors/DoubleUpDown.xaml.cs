@@ -12,7 +12,7 @@ namespace Bau.Controls.Editors
 	[TemplatePart(Name = "PART_IncreaseButton", Type = typeof(RepeatButton))]
 	[TemplatePart(Name = "PART_DecreaseButton", Type = typeof(RepeatButton))]
 	/// <summary>
-	///		Control de usuario para edición de un valor numérico
+	///		Control de usuario para edición de un valor numérico decimal
 	/// </summary>
 	public partial class DoubleUpDown : UserControl
 	{
@@ -37,7 +37,7 @@ namespace Bau.Controls.Editors
 																															OnValueChanged));
 		public static readonly DependencyProperty ValueFormatProperty = DependencyProperty.Register(nameof(ValueFormat), typeof(string), 
 																									typeof(DoubleUpDown), 
-																									new FrameworkPropertyMetadata("0", 
+																									new FrameworkPropertyMetadata("0.0000000", 
 																																  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
 																																  OnValueFormatChanged));
 		// Eventos
@@ -71,27 +71,22 @@ namespace Bau.Controls.Editors
 		/// </summary>
 		public override void OnApplyTemplate()
 		{
+			// Apliba la plantilla base
 			base.OnApplyTemplate();
-
-			RepeatButton button = GetTemplateChild("PART_IncreaseButton") as RepeatButton;
-			if (button != null)
-				button.Click += increaseBtn_Click;
-
-			button = GetTemplateChild("PART_DecreaseButton") as RepeatButton;
-			if (button != null)
-				button.Click += decreaseBtn_Click;
-
-			TextBox textBox = GetTemplateChild("PART_NumericTextBox") as TextBox;
-			if (textBox != null)
+			// Aplica la plantilla al botón de incrementar
+			if (GetTemplateChild("PART_IncreaseButton") is RepeatButton increaseButton)
+				increaseButton.Click += increaseBtn_Click;
+			// Aplica la plantilla al botón de decrementar
+			if (GetTemplateChild("PART_DecreaseButton") is RepeatButton decreaseButton)
+				decreaseButton.Click += decreaseBtn_Click;
+			// Aplica la plantilla al cuadro de texto
+			if (GetTemplateChild("PART_NumericTextBox") is TextBox textBox)
 			{
 				PART_NumericTextBox = textBox;
 				PART_NumericTextBox.Text = Value.ToString(ValueFormat);
 				PART_NumericTextBox.PreviewTextInput += numericBox_PreviewTextInput;
 				PART_NumericTextBox.MouseWheel += numericBox_MouseWheel;
 			}
-
-			button = null;
-			textBox = null;
 		}
 
 		new public Brush Foreground
@@ -102,10 +97,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnMinimumChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			DoubleUpDown numericBoxControl = sender as DoubleUpDown;
-
-				if (numericBoxControl != null && (double) args.NewValue != (double) args.OldValue)
-					numericBoxControl.Minimum = (double) args.NewValue;
+			if (sender is DoubleUpDown numericBoxControl && (double) args.NewValue != (double) args.OldValue)
+				numericBoxControl.Minimum = (double) args.NewValue;
 		}
 
 		public double Minimum
@@ -116,10 +109,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnMaximumChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			DoubleUpDown numericBoxControl = sender as DoubleUpDown;
-
-				if (numericBoxControl != null && (double) args.NewValue != (double) args.OldValue)
-					numericBoxControl.Maximum = (double) args.NewValue;
+			if (sender is DoubleUpDown numericBoxControl && (double) args.NewValue != (double) args.OldValue)
+				numericBoxControl.Maximum = (double) args.NewValue;
 		}
 
 		public double Maximum
@@ -130,10 +121,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnIncrementChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			DoubleUpDown numericBoxControl = sender as DoubleUpDown;
-
-				if (numericBoxControl != null && (int) args.NewValue != (int) args.OldValue)
-					numericBoxControl.Increment = (int) args.NewValue;
+			if (sender is DoubleUpDown numericBoxControl && (int) args.NewValue != (int) args.OldValue)
+				numericBoxControl.Increment = (int) args.NewValue;
 		}
 
 		public int Increment
@@ -144,14 +133,12 @@ namespace Bau.Controls.Editors
 
 		private static void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			DoubleUpDown numericBoxControl = sender as DoubleUpDown;
-
-				if (numericBoxControl != null && (double) args.NewValue != (double) args.OldValue)
-				{
-					numericBoxControl.Value = (double) args.NewValue;
-					numericBoxControl.PART_NumericTextBox.Text = numericBoxControl.Value.ToString(numericBoxControl.ValueFormat);
-					numericBoxControl.OnValueChanged((double) args.OldValue, (double) args.NewValue);
-				}
+			if (sender is DoubleUpDown numericBoxControl && (double) args.NewValue != (double) args.OldValue)
+			{
+				numericBoxControl.Value = (double) args.NewValue;
+				numericBoxControl.PART_NumericTextBox.Text = numericBoxControl.Value.ToString(numericBoxControl.ValueFormat);
+				numericBoxControl.OnValueChanged((double) args.OldValue, (double) args.NewValue);
+			}
 		}
 
 		public double Value
@@ -162,10 +149,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnValueFormatChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			DoubleUpDown numericBoxControl = sender as DoubleUpDown;
-
-				if (numericBoxControl != null && (string) args.NewValue != (string) args.OldValue)
-					numericBoxControl.ValueFormat = (string) args.NewValue;
+			if (sender is DoubleUpDown numericBoxControl && (string) args.NewValue != (string) args.OldValue)
+				numericBoxControl.ValueFormat = (string) args.NewValue;
 		}
 
 		public string ValueFormat
@@ -202,36 +187,39 @@ namespace Bau.Controls.Editors
 
 		private void numericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			TextBox textbox = sender as TextBox;
-			int caretIndex = textbox.CaretIndex;
+			if (sender is TextBox textbox)
+			{
+				int caretIndex = textbox.CaretIndex;
 
-				try
-				{
-					bool error = !double.TryParse(e.Text, out double newvalue);
-					string text = textbox.Text;
-					if (!error)
+					// Asigna el texto
+					try
 					{
-						text = text.Insert(textbox.CaretIndex, e.Text);
-						error = !double.TryParse(text, out newvalue);
-						if (!error)
-							error = newvalue < Minimum || newvalue > Maximum;
+						bool error = !double.TryParse(e.Text, out double newvalue);
+						string text = textbox.Text;
+
+							if (!error)
+							{
+								text = text.Insert(textbox.CaretIndex, e.Text);
+								error = !double.TryParse(text, out newvalue);
+								if (!error)
+									error = newvalue < Minimum || newvalue > Maximum;
+							}
+							if (error)
+							{
+								SystemSounds.Hand.Play();
+								textbox.CaretIndex = caretIndex;
+							}
+							else
+							{
+								PART_NumericTextBox.Text = text;
+								textbox.CaretIndex = caretIndex + e.Text.Length;
+								Value = newvalue;
+							}
 					}
-					if (error)
-					{
-						SystemSounds.Hand.Play();
-						textbox.CaretIndex = caretIndex;
-					}
-					else
-					{
-						PART_NumericTextBox.Text = text;
-						textbox.CaretIndex = caretIndex + e.Text.Length;
-						Value = newvalue;
-					}
-				}
-				catch (FormatException)
-				{
-				}
-				e.Handled = true;
+					catch {}
+					// Indica que se ha manejado el evento
+					e.Handled = true;
+			}
 		}
 
 		private void numericBox_MouseWheel(object sender, MouseWheelEventArgs e)

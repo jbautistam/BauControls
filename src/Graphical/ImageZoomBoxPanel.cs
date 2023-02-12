@@ -81,8 +81,6 @@ namespace Bau.Controls.Graphical
 			get { return (bool) GetValue(CenterContentProperty); }
 		}
 
-
-
 		public double MinZoom
 		{
 			set { SetValue(MinZoomProperty, value); }
@@ -278,6 +276,7 @@ namespace Bau.Controls.Graphical
 				if (z != null)
 					z.process_ZoomCommand(true);
 		}
+
 		public static void ExecutedEventHandler_DecreaseZoom(Object sender, ExecutedRoutedEventArgs e)
 		{
 			ImageZoomBoxPanel z = sender as ImageZoomBoxPanel;
@@ -285,6 +284,7 @@ namespace Bau.Controls.Graphical
 			if (z != null)
 				z.process_ZoomCommand(false);
 		}
+
 		public static void ExecutedEventHandler_RotateClockwise(Object sender, ExecutedRoutedEventArgs e)
 		{
 			ImageZoomBoxPanel z = sender as ImageZoomBoxPanel;
@@ -557,6 +557,7 @@ namespace Bau.Controls.Graphical
 				}
 				return dv;
 		}
+
 		private static object CoerceMinZoom(DependencyObject d, object value)
 		{
 			double dv = (double) value;
@@ -588,7 +589,6 @@ namespace Bau.Controls.Graphical
 				}
 				return dv;
 		}
-
 
 		private static object CoerceZoomTick(DependencyObject d, object value)
 		{
@@ -930,6 +930,7 @@ namespace Bau.Controls.Graphical
 
 		return from;
 		}
+
 		protected double calcAngleBetweenAngles(double from, double to)
 		{
 		// angle can go out of range - fix thanks to alinux08
@@ -1001,7 +1002,6 @@ namespace Bau.Controls.Graphical
 
 
 		}
-
 		}
 
 		private void process_PropertyChanged_Zoom(DependencyPropertyChangedEventArgs e)
@@ -1146,13 +1146,14 @@ namespace Bau.Controls.Graphical
 		{
 		if (LockContent)
 			e.Handled = true;
-
 		}
+
 		void process_PreviewMouseUp(object sender, MouseButtonEventArgs e)
 		{
 		if (LockContent)
 			e.Handled = true;
 		}
+
 		void process_PreviewMouseMove(object sender, MouseEventArgs e)
 		{
 		if (LockContent)
@@ -1176,7 +1177,6 @@ namespace Bau.Controls.Graphical
 			}
 			break;
 		}
-
 		}
 
 		void process_MouseUp(object sender, MouseButtonEventArgs e)

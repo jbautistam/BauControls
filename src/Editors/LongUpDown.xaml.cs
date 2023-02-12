@@ -71,27 +71,21 @@ namespace Bau.Controls.Editors
 		/// </summary>
 		public override void OnApplyTemplate()
 		{
+			// Asigna las plantillas base
 			base.OnApplyTemplate();
-
-			RepeatButton button = GetTemplateChild("PART_IncreaseButton") as RepeatButton;
-			if (button != null)
-				button.Click += increaseBtn_Click;
-
-			button = GetTemplateChild("PART_DecreaseButton") as RepeatButton;
-			if (button != null)
-				button.Click += decreaseBtn_Click;
-
-			TextBox textBox = GetTemplateChild("PART_NumericTextBox") as TextBox;
-			if (textBox != null)
+			// Asigna las plantillas a los botones
+			if (GetTemplateChild("PART_IncreaseButton") is RepeatButton increaseButton)
+				increaseButton.Click += increaseBtn_Click;
+			if (GetTemplateChild("PART_DecreaseButton") is RepeatButton decreaseButton)
+				decreaseButton.Click += decreaseBtn_Click;
+			// Asigna las plantillas al cuadro de texto
+			if (GetTemplateChild("PART_NumericTextBox") is TextBox textBox)
 			{
 				PART_NumericTextBox = textBox;
 				PART_NumericTextBox.Text = Value.ToString(ValueFormat);
 				PART_NumericTextBox.PreviewTextInput += numericBox_PreviewTextInput;
 				PART_NumericTextBox.MouseWheel += numericBox_MouseWheel;
 			}
-
-			button = null;
-			textBox = null;
 		}
 
 		new public Brush Foreground
@@ -102,10 +96,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnMinimumChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			LongUpDown numericBoxControl = sender as LongUpDown;
-
-				if (numericBoxControl != null && (long) args.NewValue != (long) args.OldValue)
-					numericBoxControl.Minimum = (long) args.NewValue;
+			if (sender is LongUpDown numericBoxControl && (long) args.NewValue != (long) args.OldValue)
+				numericBoxControl.Minimum = (long) args.NewValue;
 		}
 
 		public long Minimum
@@ -116,10 +108,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnMaximumChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			LongUpDown numericBoxControl = sender as LongUpDown;
-
-				if (numericBoxControl != null && (long) args.NewValue != (long) args.OldValue)
-					numericBoxControl.Maximum = (long) args.NewValue;
+			if (sender is LongUpDown numericBoxControl && (long) args.NewValue != (long) args.OldValue)
+				numericBoxControl.Maximum = (long) args.NewValue;
 		}
 
 		public long Maximum
@@ -130,10 +120,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnIncrementChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			LongUpDown numericBoxControl = sender as LongUpDown;
-
-				if (numericBoxControl != null && (int) args.NewValue != (int) args.OldValue)
-					numericBoxControl.Increment = (int) args.NewValue;
+			if (sender is LongUpDown numericBoxControl && (int) args.NewValue != (int) args.OldValue)
+				numericBoxControl.Increment = (int) args.NewValue;
 		}
 
 		public int Increment
@@ -144,14 +132,12 @@ namespace Bau.Controls.Editors
 
 		private static void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			LongUpDown numericBoxControl = sender as LongUpDown;
-
-				if (numericBoxControl != null && (long) args.NewValue != (long) args.OldValue)
-				{
-					numericBoxControl.Value = (long) args.NewValue;
-					numericBoxControl.PART_NumericTextBox.Text = numericBoxControl.Value.ToString(numericBoxControl.ValueFormat);
-					numericBoxControl.OnValueChanged((long) args.OldValue, (long) args.NewValue);
-				}
+			if (sender is LongUpDown numericBoxControl && (long) args.NewValue != (long) args.OldValue)
+			{
+				numericBoxControl.Value = (long) args.NewValue;
+				numericBoxControl.PART_NumericTextBox.Text = numericBoxControl.Value.ToString(numericBoxControl.ValueFormat);
+				numericBoxControl.OnValueChanged((long) args.OldValue, (long) args.NewValue);
+			}
 		}
 
 		public long Value
@@ -162,10 +148,8 @@ namespace Bau.Controls.Editors
 
 		private static void OnValueFormatChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 		{
-			LongUpDown numericBoxControl = sender as LongUpDown;
-
-				if (numericBoxControl != null && (string) args.NewValue != (string) args.OldValue)
-					numericBoxControl.ValueFormat = (string) args.NewValue;
+			if (sender is LongUpDown numericBoxControl && (string) args.NewValue != (string) args.OldValue)
+				numericBoxControl.ValueFormat = (string) args.NewValue;
 		}
 
 		public string ValueFormat
@@ -202,36 +186,37 @@ namespace Bau.Controls.Editors
 
 		private void numericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			TextBox textbox = sender as TextBox;
-			int caretIndex = textbox.CaretIndex;
+			if (sender is TextBox textbox)
+			{
+				int caretIndex = textbox.CaretIndex;
 
-				try
-				{
-					bool error = !long.TryParse(e.Text, out long newvalue);
-					string text = textbox.Text;
-					if (!error)
+					try
 					{
-						text = text.Insert(textbox.CaretIndex, e.Text);
-						error = !long.TryParse(text, out newvalue);
-						if (!error)
-							error = (newvalue < Minimum || newvalue > Maximum);
+						bool error = !long.TryParse(e.Text, out long newvalue);
+						string text = textbox.Text;
+
+							if (!error)
+							{
+								text = text.Insert(textbox.CaretIndex, e.Text);
+								error = !long.TryParse(text, out newvalue);
+								if (!error)
+									error = (newvalue < Minimum || newvalue > Maximum);
+							}
+							if (error)
+							{
+								SystemSounds.Hand.Play();
+								textbox.CaretIndex = caretIndex;
+							}
+							else
+							{
+								PART_NumericTextBox.Text = text;
+								textbox.CaretIndex = caretIndex + e.Text.Length;
+								Value = newvalue;
+							}
 					}
-					if (error)
-					{
-						SystemSounds.Hand.Play();
-						textbox.CaretIndex = caretIndex;
-					}
-					else
-					{
-						PART_NumericTextBox.Text = text;
-						textbox.CaretIndex = caretIndex + e.Text.Length;
-						Value = newvalue;
-					}
-				}
-				catch (FormatException)
-				{
-				}
-				e.Handled = true;
+					catch {}
+					e.Handled = true;
+			}
 		}
 
 		private void numericBox_MouseWheel(object sender, MouseWheelEventArgs e)
