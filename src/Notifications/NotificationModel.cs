@@ -7,7 +7,8 @@ namespace Bau.Controls.Notifications
 	///		Clase con los datos de una notificación
 	/// </summary>
 	public class NotificationModel : INotifyPropertyChanged
-	{   // Eventos públicos
+	{
+		// Eventos públicos
 		public event PropertyChangedEventHandler PropertyChanged;
 		// Enumerados públicos
 		/// <summary>
@@ -38,7 +39,7 @@ namespace Bau.Controls.Notifications
 		public string ID
 		{
 			get
-			{	// Obtiene el ID
+			{   // Obtiene el ID
 				if (string.IsNullOrEmpty(_id))
 					_id = Guid.NewGuid().ToString();
 				// Devuelve el ID

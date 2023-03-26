@@ -28,7 +28,7 @@ namespace Bau.Controls.Files
 																								 new FrameworkPropertyMetadata(string.Empty,
 																															   FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 		public static readonly DependencyProperty MaskProperty = DependencyProperty.Register(nameof(Mask), typeof(string), typeof(FileSelect),
-																							 new FrameworkPropertyMetadata("Todos los archivos (*.*)|*.*",
+																							 new FrameworkPropertyMetadata("All files (*.*)|*.*",
 																														   FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 		public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(ModeType), typeof(FileSelect),
 																							 new FrameworkPropertyMetadata(ModeType.Load,

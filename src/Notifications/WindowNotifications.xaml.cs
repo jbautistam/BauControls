@@ -16,7 +16,8 @@ namespace Bau.Controls.Notifications
 		private readonly NotificationsModelCollection _buffer = new NotificationsModelCollection();
 
 		public WindowNotifications()
-		{   // Inicializa los componentes
+		{   
+			// Inicializa los componentes
 			InitializeComponent();
 			// Asigna el dataContext
 			NotificationsControl.DataContext = _notifications;
