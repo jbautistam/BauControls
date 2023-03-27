@@ -136,7 +136,7 @@ namespace Bau.Controls.WebExplorers
 		/// <summary>
 		///		Muestra una cadena HTML
 		/// </summary>
-		public async Task ShowHtmlAsync(string html, bool mustRemoveIFrame = true)
+		public async Task ShowHtmlAsync(string html)
 		{
 			try
 			{
@@ -144,8 +144,6 @@ namespace Bau.Controls.WebExplorers
 				while (wbExplorer.CoreWebView2 == null)
 					await Task.Delay(500);
 				// Elimina los datos adicionales del HTML
-				if (mustRemoveIFrame)
-					html = RemoveIframe(html);
 				HideScriptErrors(HiddenScriptErrors);
 				// Llama al explorador
 				wbExplorer.Source = new Uri("about:blank");
@@ -157,19 +155,29 @@ namespace Bau.Controls.WebExplorers
 			}
 		}
 
-		/// <summary>
-		///		Elimina el contenido de las etiquetas iFrame que pueden bloquear el explorador
-		/// </summary>
-		private string RemoveIframe(string text)
-		{
-			string result = text;
+		///// <summary>
+		/////		Elimina el contenido de las etiquetas iFrame que pueden bloquear el explorador
+		///// </summary>
+		//private string RemoveIframe(string text)
+		//{
+		//	string result = text;
+		//	int loops = 0;
 
-				// Quita la etiqueta "iframe"
-				while (!string.IsNullOrEmpty(result) && result.IndexOf("<iframe") >= 0)
-					result = System.Text.RegularExpressions.Regex.Replace(result, "<iframe(.|\n)*?</iframe>", string.Empty);
-				// Devuelve el resultado
-				return result;
-		}
+		//		// Quita la etiqueta "iframe"
+		//		while (!string.IsNullOrEmpty(result) && result.Contains("<iframe") && result.Contains("</iframe>") && loops++ < 10)
+		//			result = System.Text.RegularExpressions.Regex.Replace(result, "<iframe(.|\n)*?</iframe>", string.Empty, 
+		//																  System.Text.RegularExpressions.RegexOptions.IgnoreCase | 
+		//																	System.Text.RegularExpressions.RegexOptions.Multiline |
+		//																	System.Text.RegularExpressions.RegexOptions.Compiled);
+		//		// Elimina los iframe que hayan podido quedarse descolgados
+		//		if (!string.IsNullOrWhiteSpace(result))
+		//		{
+		//			result = result.Replace("<iframe", "<span");
+		//			result = result.Replace("</iframe", "</span>");
+		//		}
+		//		// Devuelve el resultado
+		//		return result;
+		//}
 
 		/// <summary>
 		///		Llama a un método de JavaScript
