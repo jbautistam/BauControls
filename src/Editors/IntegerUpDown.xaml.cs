@@ -19,7 +19,7 @@ namespace Bau.Controls.Editors
 		// Propiedades
 		public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(int), 
 																								typeof(IntegerUpDown), 
-																								new FrameworkPropertyMetadata(int.MinValue, 
+																								new FrameworkPropertyMetadata(0, 
 																															  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
 																															  OnMinimumChanged));
 		public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(int), typeof(IntegerUpDown), 
@@ -67,6 +67,47 @@ namespace Bau.Controls.Editors
 		}
 
 		/// <summary>
+		///		Convierte el valor a partir del texto
+		/// </summary>
+		private void ConvertValueFromText()
+		{
+			string text = Normalize(PART_NumericTextBox.Text);
+
+				// Convierte el valor a partir del texto normalizado
+				if (int.TryParse(text, out int newValue))
+				{
+					if (Value < Minimum)
+						Value = Minimum;
+					else if (Value > Maximum)
+						Value = Maximum;
+					else
+						Value = newValue;
+				}
+				else
+					Value = 0;
+		}
+
+		/// <summary>
+		///		Normaliza el texto
+		/// </summary>
+		private string Normalize(string text)
+		{
+			string result = string.Empty;
+
+				// Quita los caracteres que no sean dígitos o signos matemáticos
+				foreach (char chr in text)
+					if (char.IsDigit(chr))
+						result += chr;
+					else if (chr == '-' || chr == '+' && result.Length == 0)
+						result += chr;
+				// Si no hay nada, pone un 0
+				if (string.IsNullOrWhiteSpace(result))
+					result = "0";
+				// Devuelve el resultado
+				return result;
+		}
+
+		/// <summary>
 		///		Aplica las plantillas al cambiar de estilo
 		/// </summary>
 		public override void OnApplyTemplate()
@@ -88,7 +129,7 @@ namespace Bau.Controls.Editors
 			}
 		}
 
-		new public Brush Foreground
+		public new Brush Foreground
 		{
 			get { return PART_NumericTextBox.Foreground; }
 			set { PART_NumericTextBox.Foreground = value; }
@@ -184,40 +225,16 @@ namespace Bau.Controls.Editors
 			DecreaseValue();
 		}
 
+		protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+		{
+			ConvertValueFromText();
+			base.OnPreviewLostKeyboardFocus(e);
+		}
+
 		private void numericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			if (sender is TextBox textbox)
-			{
-				int caretIndex = textbox.CaretIndex;
-
-					try
-					{
-						bool error = !int.TryParse(e.Text, out int newvalue);
-						string text = textbox.Text;
-
-							if (!error)
-							{
-								text = text.Insert(textbox.CaretIndex, e.Text);
-								error = !int.TryParse(text, out newvalue);
-								if (!error)
-									error = (newvalue < Minimum || newvalue > Maximum);
-							}
-							if (error)
-							{
-								SystemSounds.Hand.Play();
-								textbox.CaretIndex = caretIndex;
-							}
-							else
-							{
-								PART_NumericTextBox.Text = text;
-								textbox.CaretIndex = caretIndex + e.Text.Length;
-								Value = newvalue;
-							}
-					}
-					catch {}
-					// Indica que se ha manejado el evento
-					e.Handled = true;
-			}
+			if (sender is TextBox)
+				ConvertValueFromText();
 		}
 
 		private void numericBox_MouseWheel(object sender, MouseWheelEventArgs e)

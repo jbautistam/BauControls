@@ -87,8 +87,7 @@
 
 		<Grid Grid.Column="0">
 			<TextBox x:Name="PART_NumericTextBox" Grid.Column="0" BorderBrush="Black" Margin="0,0,0.2,0"  HorizontalContentAlignment="Right"
-				 PreviewTextInput="numericBox_PreviewTextInput" 
-				 MouseWheel="numericBox_MouseWheel" />
+				 PreviewTextInput="numericBox_PreviewTextInput" MouseWheel="numericBox_MouseWheel" />
 		</Grid>
 		<Grid Grid.Column="1">
             <Grid.RowDefinitions>

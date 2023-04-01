@@ -88,6 +88,47 @@ namespace Bau.Controls.Editors
 			}
 		}
 
+		/// <summary>
+		///		Convierte el valor a partir del texto
+		/// </summary>
+		private void ConvertValueFromText()
+		{
+			string text = Normalize(PART_NumericTextBox.Text);
+
+				// Convierte el valor a partir del texto normalizado
+				if (long.TryParse(text, out long newValue))
+				{
+					if (Value < Minimum)
+						Value = Minimum;
+					else if (Value > Maximum)
+						Value = Maximum;
+					else
+						Value = newValue;
+				}
+				else
+					Value = 0;
+		}
+
+		/// <summary>
+		///		Normaliza el texto
+		/// </summary>
+		private string Normalize(string text)
+		{
+			string result = string.Empty;
+
+				// Quita los caracteres que no sean dígitos o signos matemáticos
+				foreach (char chr in text)
+					if (char.IsDigit(chr))
+						result += chr;
+					else if (chr == '-' || chr == '+' && result.Length == 0)
+						result += chr;
+				// Si no hay nada, pone un 0
+				if (string.IsNullOrWhiteSpace(result))
+					result = "0";
+				// Devuelve el resultado
+				return result;
+		}
+
 		new public Brush Foreground
 		{
 			get { return PART_NumericTextBox.Foreground; }
@@ -184,39 +225,16 @@ namespace Bau.Controls.Editors
 			DecreaseValue();
 		}
 
+		protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+		{
+			ConvertValueFromText();
+			base.OnPreviewLostKeyboardFocus(e);
+		}
+
 		private void numericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			if (sender is TextBox textbox)
-			{
-				int caretIndex = textbox.CaretIndex;
-
-					try
-					{
-						bool error = !long.TryParse(e.Text, out long newvalue);
-						string text = textbox.Text;
-
-							if (!error)
-							{
-								text = text.Insert(textbox.CaretIndex, e.Text);
-								error = !long.TryParse(text, out newvalue);
-								if (!error)
-									error = (newvalue < Minimum || newvalue > Maximum);
-							}
-							if (error)
-							{
-								SystemSounds.Hand.Play();
-								textbox.CaretIndex = caretIndex;
-							}
-							else
-							{
-								PART_NumericTextBox.Text = text;
-								textbox.CaretIndex = caretIndex + e.Text.Length;
-								Value = newvalue;
-							}
-					}
-					catch {}
-					e.Handled = true;
-			}
+			if (sender is TextBox)
+				ConvertValueFromText();
 		}
 
 		private void numericBox_MouseWheel(object sender, MouseWheelEventArgs e)
