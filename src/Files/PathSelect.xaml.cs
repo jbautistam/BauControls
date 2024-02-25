@@ -28,14 +28,15 @@ namespace Bau.Controls.Files
 		/// </summary>
 		private void OpenDialog()
 		{
-			Ookii.Dialogs.Wpf.VistaFolderBrowserDialog folder = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+			Microsoft.Win32.OpenFolderDialog dialog = new();
 
-				// Asigna la carpeta inicial
-				folder.SelectedPath = PathName;
-				folder.ShowNewFolderButton = true;
+				// Inicializa las propiedads
+				dialog.Multiselect = false;
+				dialog.Title = "Select a folder";
+				dialog.InitialDirectory = PathName;
 				// Muestra el diálogo
-				if (folder.ShowDialog() ?? false)
-					PathName = folder.SelectedPath;
+				if (dialog.ShowDialog() ?? false)
+					PathName = dialog.FolderName;
 		}
 
 		/// <summary>
