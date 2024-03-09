@@ -13,11 +13,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Themes\Images\Accept.png" />
+    <None Remove="Themes\Images\ArrowBottom.png" />
     <None Remove="Themes\Images\ArrowDown.png" />
     <None Remove="Themes\Images\ArrowFirst.png" />
     <None Remove="Themes\Images\ArrowLast.png" />
     <None Remove="Themes\Images\ArrowNext.png" />
     <None Remove="Themes\Images\ArrowPrevious.png" />
+    <None Remove="Themes\Images\ArrowTop.png" />
     <None Remove="Themes\Images\ArrowUp.png" />
     <None Remove="Themes\Images\Blog.png" />
     <None Remove="Themes\Images\Close.png" />
@@ -56,6 +58,8 @@
     <Page Remove="WebExplorers\WebExplorerExtended.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Themes\Images\ArrowBottom.png" />
+    <Resource Include="Themes\Images\ArrowTop.png" />
     <Resource Include="Themes\Images\saveas.png" />
   </ItemGroup>
   <ItemGroup>
