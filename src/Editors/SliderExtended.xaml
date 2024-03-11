@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Bau.Controls.Editors.SliderExtended"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+						 mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="300" >
+	<Grid x:Name="grdSlider">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+		<Button Grid.Column="0" Click="cmdPrevious_Click" Margin="0" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+			<Button.Content>
+				<Image Width="16" Height="16" Source="/BauControls;component/Themes/Images/ArrowPrevious.png"/>
+			</Button.Content>
+		</Button>
+		<Slider Grid.Column="2" Margin="0" VerticalAlignment="Center" 
+			Minimum="{Binding Path=Minimum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			Maximum="{Binding Path=Maximum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			Value="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			LargeChange="{Binding Path=LargeChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			SmallChange="{Binding Path=SmallChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			Ticks="{Binding Path=Ticks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			TickFrequency="{Binding Path=TickFrequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			/>
+		<Button Grid.Column="3" Click="cmdNext_Click" Margin="0" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+			<Button.Content>
+				<Image Width="16" Height="16" Source="/BauControls;component/Themes/Images/ArrowNext.png"/>
+			</Button.Content>
+		</Button>
+		<TextBlock Grid.Column="1" Text="{Binding Path=Value}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</Grid>
+</UserControl>
