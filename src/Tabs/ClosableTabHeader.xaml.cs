@@ -1,41 +1,39 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
-namespace Bau.Controls.Tabs
+namespace Bau.Controls.Tabs;
+
+/// <summary>
+///		Cabecera para un elemento de un control tab para que se puede cerrar
+/// </summary>
+public partial class ClosableTabHeader : UserControl
 {
-	/// <summary>
-	///		Cabecera para un elemento de un control tab para que se puede cerrar
-	/// </summary>
-	public partial class ClosableTabHeader : UserControl
+	// Eventos
+	internal event EventHandler? Close;
+
+	public ClosableTabHeader()
 	{
-		// Eventos
-		internal event EventHandler Close;
+		InitializeComponent();
+	}
 
-		public ClosableTabHeader()
-		{
-			InitializeComponent();
-		}
+	/// <summary>
+	///		Lanza el evento de cerrar
+	/// </summary>
+	private void RaiseEventClose()
+	{
+		Close?.Invoke(this, EventArgs.Empty);
+	}
 
-		/// <summary>
-		///		Lanza el evento de cerrar
-		/// </summary>
-		private void RaiseEventClose()
-		{
-			Close?.Invoke(this, EventArgs.Empty);
-		}
+	/// <summary>
+	///		Cabecera
+	/// </summary>
+	public string Header 
+	{
+		get { return lblHeader.Content?.ToString() ?? string.Empty; }
+		set { lblHeader.Content = value; }
+	}
 
-		/// <summary>
-		///		Cabecera
-		/// </summary>
-		public string Header 
-		{
-			get { return lblHeader.Content?.ToString(); }
-			set { lblHeader.Content = value; }
-		}
-
-		private void cmdClose_Click(object sender, System.Windows.RoutedEventArgs e)
-		{
-			RaiseEventClose();
-		}
+	private void cmdClose_Click(object sender, System.Windows.RoutedEventArgs e)
+	{
+		RaiseEventClose();
 	}
 }

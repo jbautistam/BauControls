@@ -1,69 +1,67 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Bau.Controls.Files
-{
+namespace Bau.Controls.Files;
+
+/// <summary>
+///		Control de usuario para selección de un directorio
+/// </summary>
+public partial class PathSelect : UserControl
+{ 
+	// Propiedades
+	public static readonly DependencyProperty PathNameProperty = DependencyProperty.Register(nameof(PathName), typeof(string), typeof(PathSelect),
+																							 new FrameworkPropertyMetadata(null,
+																														   FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+																														   null));
+	// Eventos
+	public event EventHandler? Changed;
+
+	public PathSelect()
+	{
+		InitializeComponent();
+		grdPathSelect.DataContext = this;
+	}
+
 	/// <summary>
-	///		Control de usuario para selección de un archivo
+	///		Abre el cuadro de diálogo apropiado
 	/// </summary>
-	public partial class PathSelect : UserControl
-	{ 
-		// Propiedades
-		public static readonly DependencyProperty PathNameProperty = DependencyProperty.Register(nameof(PathName), typeof(string), typeof(PathSelect),
-																								 new FrameworkPropertyMetadata(null,
-																															   FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-																															   null));
-		// Eventos
-		public event EventHandler Changed;
+	private void OpenDialog()
+	{
+		Microsoft.Win32.OpenFolderDialog dialog = new();
 
-		public PathSelect()
+			// Inicializa las propiedads
+			dialog.Multiselect = false;
+			dialog.Title = "Select a folder";
+			dialog.InitialDirectory = PathName;
+			// Muestra el diálogo
+			if (dialog.ShowDialog() ?? false)
+				PathName = dialog.FolderName;
+	}
+
+	/// <summary>
+	///		Nombre de directorio
+	/// </summary>
+	public string PathName
+	{
+		get { return (string) GetValue(PathNameProperty); }
+		set
 		{
-			InitializeComponent();
-			grdPathSelect.DataContext = this;
+			SetValue(PathNameProperty, value);
+			txtPath.Text = value;
+			OnChanged();
 		}
+	}
 
-		/// <summary>
-		///		Abre el cuadro de diálogo apropiado
-		/// </summary>
-		private void OpenDialog()
-		{
-			Microsoft.Win32.OpenFolderDialog dialog = new();
+	/// <summary>
+	///		Lanza el evento de modificación
+	/// </summary>
+	protected virtual void OnChanged()
+	{
+		Changed?.Invoke(this, EventArgs.Empty);
+	}
 
-				// Inicializa las propiedads
-				dialog.Multiselect = false;
-				dialog.Title = "Select a folder";
-				dialog.InitialDirectory = PathName;
-				// Muestra el diálogo
-				if (dialog.ShowDialog() ?? false)
-					PathName = dialog.FolderName;
-		}
-
-		/// <summary>
-		///		Nombre de directorio
-		/// </summary>
-		public string PathName
-		{
-			get { return GetValue(PathNameProperty) as string; }
-			set
-			{
-				SetValue(PathNameProperty, value);
-				txtPath.Text = value;
-				OnChanged();
-			}
-		}
-
-		/// <summary>
-		///		Lanza el evento de modificación
-		/// </summary>
-		protected virtual void OnChanged()
-		{
-			Changed?.Invoke(this, EventArgs.Empty);
-		}
-
-		private void cmdSelect_Click(object sender, RoutedEventArgs e)
-		{
-			OpenDialog();
-		}
+	private void cmdSelect_Click(object sender, RoutedEventArgs e)
+	{
+		OpenDialog();
 	}
 }

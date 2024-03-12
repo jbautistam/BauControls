@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Bau.Controls.Editors;
@@ -17,8 +16,8 @@ public partial class DateTimeEditor : UserControl
 																													   OnDateChanged));
 	// Eventos
 	public static readonly RoutedEvent DateChangedEvent = EventManager.RegisterRoutedEvent(nameof(DateChanged), RoutingStrategy.Direct, 
-																							typeof(RoutedPropertyChangedEventHandler<int>), 
-																							typeof(DateTimeEditor));
+																						   typeof(RoutedPropertyChangedEventHandler<int>), 
+																						   typeof(DateTimeEditor));
 	// Variables privadas
 	private bool _isUpdating = false;
 

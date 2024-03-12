@@ -1,20 +1,17 @@
-﻿using System;
+﻿namespace Bau.Controls.WebExplorers;
 
-namespace Bau.Controls.WebExplorers
+/// <summary>
+///		Argumentos del evento de llamada a una función externa desde el explorador
+/// </summary>
+public class WebExplorerFunctionEventArgs : EventArgs
 {
-	/// <summary>
-	///		Argumentos del evento de llamada a una función externa desde el explorador
-	/// </summary>
-	public class WebExplorerFunctionEventArgs : EventArgs
+	public WebExplorerFunctionEventArgs(string parameters)
 	{
-		public WebExplorerFunctionEventArgs(string parameters)
-		{
-			Parameters = parameters;
-		}
-
-		/// <summary>
-		///		Parámetros de la llamada a función
-		/// </summary>
-		public string Parameters { get; }
+		Parameters = parameters;
 	}
+
+	/// <summary>
+	///		Parámetros de la llamada a función
+	/// </summary>
+	public string Parameters { get; }
 }

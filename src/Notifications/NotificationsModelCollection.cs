@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
-namespace Bau.Controls.Notifications
+namespace Bau.Controls.Notifications;
+
+/// <summary>
+///		Colección de <see cref="NotificationModel"/>
+/// </summary>
+public class NotificationsModelCollection : ObservableCollection<NotificationModel>
 {
 	/// <summary>
-	///		Colección de <see cref="NotificationModel"/>
+	///		Elimina un elemento por su ID
 	/// </summary>
-	public class NotificationsModelCollection : ObservableCollection<NotificationModel>
+	public void RemoveByID(string id)
 	{
-		/// <summary>
-		///		Elimina un elemento por su ID
-		/// </summary>
-		public void RemoveByID(string id)
-		{
-			for (int index = Count - 1; index >= 0; index--)
-				if (this [index].ID == id)
-					RemoveAt(index);
-		}
+		for (int index = Count - 1; index >= 0; index--)
+			if (this [index].ID == id)
+				RemoveAt(index);
 	}
 }

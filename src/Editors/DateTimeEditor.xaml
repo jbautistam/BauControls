@@ -4,16 +4,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 MinWidth="70">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="Auto"/>
-			<ColumnDefinition Width="Auto"/>
-			<ColumnDefinition Width="Auto"/>
-		</Grid.ColumnDefinitions>
-		<DatePicker x:Name="txtDate" Grid.Row="0" Grid.Column="0" FirstDayOfWeek="Monday" Margin="5" SelectedDateChanged="txtDate_SelectedDateChanged" VerticalAlignment="Center" />
-		<Editors:IntegerUpDown x:Name="txtHour" Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="23" Margin="5" ValueChanged="DateTimeEditorControls_ValueChanged" />
-		<TextBlock Grid.Row="0" Grid.Column="2" Text=":" Margin="5" VerticalAlignment="Center"/>
-		<Editors:IntegerUpDown x:Name="txtMinute" Grid.Row="0" Grid.Column="3" Minimum="0" Maximum="59" Margin="5" ValueChanged="DateTimeEditorControls_ValueChanged"/>
-	</Grid>
+	<StackPanel Orientation="Horizontal" Margin="0">
+		<DatePicker x:Name="txtDate" FirstDayOfWeek="Monday" MinWidth="100" Width="100" MaxWidth="100" SelectedDateChanged="txtDate_SelectedDateChanged" />
+		<TextBlock Text=" " Margin="1" VerticalAlignment="Center"/>
+		<Editors:IntegerUpDown x:Name="txtHour" Minimum="0" Maximum="23" MinWidth="40" Width="40" MaxWidth="40" Height="25" MinHeight="25" MaxHeight="25"
+			VerticalAlignment="Center" VerticalContentAlignment="Center"
+			ValueChanged="DateTimeEditorControls_ValueChanged" />
+		<TextBlock Text=" : " VerticalAlignment="Center"/>
+		<Editors:IntegerUpDown x:Name="txtMinute" Minimum="0" Maximum="59" MinWidth="40" Width="40" MaxWidth="40" Height="25" MinHeight="25" MaxHeight="25"
+			VerticalAlignment="Center" VerticalContentAlignment="Center" 
+			ValueChanged="DateTimeEditorControls_ValueChanged" />
+	</StackPanel>
 </UserControl>

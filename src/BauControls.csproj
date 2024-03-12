@@ -11,6 +11,7 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Graphical\ImageZoomBoxPanel.cs" />
     <Compile Remove="WebExplorers\WebExplorerExtended.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,5 +119,14 @@
     <Page Update="Editors\LongUpDown.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="C:\Users\Usuario\.nuget\packages\microsoft.web.webview2\1.0.2277.86\build\\..\runtimes\win-x86\native\WebView2Loader.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="C:\Users\Usuario\.nuget\packages\microsoft.web.webview2\1.0.2277.86\build\\..\runtimes\win-x64\native\WebView2Loader.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="C:\Users\Usuario\.nuget\packages\microsoft.web.webview2\1.0.2277.86\build\\..\runtimes\win-arm64\native\WebView2Loader.dll" />
   </ItemGroup>
 </Project>
