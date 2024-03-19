@@ -24,7 +24,6 @@
     <None Remove="Themes\Images\ArrowPrevious.png" />
     <None Remove="Themes\Images\ArrowTop.png" />
     <None Remove="Themes\Images\ArrowUp.png" />
-    <None Remove="Themes\Images\Blog.png" />
     <None Remove="Themes\Images\Close.png" />
     <None Remove="Themes\Images\Copy.png" />
     <None Remove="Themes\Images\Cut.png" />
@@ -76,7 +75,6 @@
     <Resource Include="Themes\Images\ArrowNext.png" />
     <Resource Include="Themes\Images\ArrowPrevious.png" />
     <Resource Include="Themes\Images\ArrowUp.png" />
-    <Resource Include="Themes\Images\Blog.png" />
     <Resource Include="Themes\Images\Close.png" />
     <Resource Include="Themes\Images\Copy.png" />
     <Resource Include="Themes\Images\Cut.png" />
