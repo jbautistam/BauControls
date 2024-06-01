@@ -65,7 +65,7 @@
     <Resource Include="Themes\Images\saveas.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2277.86" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Images\Accept.png" />
@@ -107,6 +107,9 @@
     <Resource Include="Themes\Images\WebBrowser.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Editors\TimeEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Editors\PasswordTextBox.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

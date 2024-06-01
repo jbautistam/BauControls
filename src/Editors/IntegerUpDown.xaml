@@ -86,7 +86,8 @@
         </Grid.ColumnDefinitions>
 
 		<Grid Grid.Column="0">
-			<TextBox x:Name="PART_NumericTextBox" Grid.Column="0" BorderBrush="Black" Margin="0,0,0.2,0" HorizontalContentAlignment="Right" MouseWheel="numericBox_MouseWheel" />
+			<TextBox x:Name="PART_NumericTextBox" Grid.Column="0" BorderBrush="Black" Margin="0,0,0.2,0" HorizontalContentAlignment="Right" 
+			MouseWheel="numericBox_MouseWheel" />
 		</Grid>
 		<Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -119,7 +120,6 @@
 							 AncestorType=RepeatButton}, Path=Foreground}" />
                 </RepeatButton.Content>
             </RepeatButton>
-        </Grid>
-        
+        </Grid>        
     </Grid>
 </UserControl>

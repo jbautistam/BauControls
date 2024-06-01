@@ -1,0 +1,16 @@
+﻿<UserControl xmlns:Editors="clr-namespace:Bau.Controls.Editors"  
+			 x:Class="Bau.Controls.Editors.TimeEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 MinWidth="70">
+	<StackPanel Orientation="Horizontal" Margin="0">
+		<Editors:IntegerUpDown x:Name="txtHour" Minimum="0" Maximum="23" MinWidth="40" Width="40" MaxWidth="40" Height="25" MinHeight="25" MaxHeight="25"
+			VerticalAlignment="Center" VerticalContentAlignment="Center"
+			ValueChanged="TimeEditorControls_ValueChanged" />
+		<TextBlock Text=" : " VerticalAlignment="Center"/>
+		<Editors:IntegerUpDown x:Name="txtMinute" Minimum="0" Maximum="59" MinWidth="40" Width="40" MaxWidth="40" Height="25" MinHeight="25" MaxHeight="25"
+			VerticalAlignment="Center" VerticalContentAlignment="Center" 
+			ValueChanged="TimeEditorControls_ValueChanged" />
+	</StackPanel>
+</UserControl>

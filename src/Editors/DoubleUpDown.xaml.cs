@@ -35,7 +35,7 @@ public partial class DoubleUpDown : UserControl
 																														OnValueChanged));
 	public static readonly DependencyProperty ValueFormatProperty = DependencyProperty.Register(nameof(ValueFormat), typeof(string), 
 																								typeof(DoubleUpDown), 
-																								new FrameworkPropertyMetadata("0.0000000", 
+																								new FrameworkPropertyMetadata("0.000", 
 																															  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
 																															  OnValueFormatChanged));
 	// Eventos

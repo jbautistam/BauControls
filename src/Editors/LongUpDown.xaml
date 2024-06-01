@@ -98,6 +98,7 @@
 						  BorderBrush="Black" BorderThickness="0.75" Width="13"
 						  Foreground="Black" Background="#cecece"
 						  Style="{DynamicResource UpDownButtonStyle}"
+						  						  IsTabStop="False"
 						  Click="increaseBtn_Click" >
                 <RepeatButton.Content>
 					<Polygon StrokeThickness="0.5" Stroke="Transparent" 
@@ -110,6 +111,7 @@
 						  BorderBrush="Black" BorderThickness="0.75"
 						  Foreground="Black" Background="#cecece"
 						  Style="{DynamicResource UpDownButtonStyle}" 
+						  						  IsTabStop="False"
 						  Click="decreaseBtn_Click" >
 				<RepeatButton.Content>
 					<Polygon StrokeThickness="0.5" Stroke="Transparent" 
