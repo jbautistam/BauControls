@@ -16,6 +16,7 @@ public static class PasswordHelper
 		dp.SetValue(AttachProperty, value);
 	}
 
+
 	public static bool GetAttach(DependencyObject dp)
 	{
 		return (bool) dp.GetValue(AttachProperty);
