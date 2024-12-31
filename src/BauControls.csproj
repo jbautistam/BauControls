@@ -65,7 +65,7 @@
     <Resource Include="Themes\Images\saveas.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2792.45" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Images\Accept.png" />
