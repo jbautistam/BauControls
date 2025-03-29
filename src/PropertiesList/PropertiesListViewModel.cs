@@ -12,31 +12,37 @@ public class PropertiesListViewModel : INotifyPropertyChanged
     // Eventos públicos
     public event PropertyChangedEventHandler? PropertyChanged;
     // Variables privadas
-    private ObservableCollection<UciOption> _options;
-
-    public ObservableCollection<UciOption> Options
-    {
-        get => _options;
-        set
-        {
-            _options = value;
-            OnPropertyChanged();
-        }
-    }
+    private ObservableCollection<UciOption> _options = default!;
 
     public PropertiesListViewModel()
     {
         // Inicializa con opciones de ejemplo
         Options = new ObservableCollection<UciOption>
-        {
-            new SpinOption { Name = "Hash", MinValue = 1, MaxValue = 128, Value = 16 },
-            new CheckOption { Name = "Ponder", Value = false },
-            new ComboOption { Name = "Style", ComboValues = new List<string> { "Solid", "Aggressive", "Passive" }, SelectedValue = "Solid" }
-        };
+                            {
+                                new SpinOption { Name = "Hash", MinValue = 1, MaxValue = 128, Value = 16 },
+                                new CheckOption { Name = "Ponder", Value = false },
+                                new ComboOption { Name = "Style", ComboValues = new List<string> { "Solid", "Aggressive", "Passive" }, SelectedValue = "Solid" }
+                            };
     }
 
-    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    /// <summary>
+    ///     Tratamiento del evento <see cref="PropertyChanged"/>
+    /// </summary>
+    protected void OnPropertyChanged([CallerMemberName] string? name = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+    /// <summary>
+    ///     Opciones
+    /// </summary>
+    public ObservableCollection<UciOption> Options
+    {
+        get { return _options; }
+        set
+        {
+            _options = value;
+            OnPropertyChanged();
+        }
     }
 }
